@@ -65,6 +65,7 @@
   "typedef"
   "const"
   "static"
+  "noexcept"
   "input"
 ] @keyword
 
@@ -83,11 +84,19 @@
   function: (identifier) @function.call)
 
 (call_expression
+  function: (qualified_identifier
+    name: (identifier) @function.call))
+
+(call_expression
   function: (field_expression
     field: (field_identifier) @function.call))
 
 (function_declarator
   declarator: (identifier) @function)
+
+(function_declarator
+  declarator: (qualified_identifier
+    name: (identifier) @function))
 
 ; Properties
 (field_expression
