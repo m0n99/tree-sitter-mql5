@@ -33,6 +33,9 @@
 ; Comments
 (comment) @comment @spell
 
+; Builtins
+(this) @variable.builtin
+
 ; Keywords
 [
   "if"
@@ -63,8 +66,10 @@
   "using"
   "namespace"
   "typedef"
+  "template"
   "const"
   "static"
+  "noexcept"
   "input"
 ] @keyword
 
@@ -75,6 +80,9 @@
   type: _?)
 (type_identifier) @type
 
+((namespace_identifier) @type
+  (#match? @type "^[A-Z]"))
+
 ((identifier) @type.enum
   (#lua-match? @type.enum "^ENUM_[A-Z0-9_]+$"))
 
@@ -83,11 +91,28 @@
   function: (identifier) @function.call)
 
 (call_expression
+  function: (qualified_identifier
+    name: (identifier) @function))
+
+(template_function
+  name: (identifier) @function)
+
+(template_method
+  name: (field_identifier) @function)
+
+(call_expression
   function: (field_expression
     field: (field_identifier) @function.call))
 
 (function_declarator
   declarator: (identifier) @function)
+
+(function_declarator
+  declarator: (qualified_identifier
+    name: (identifier) @function))
+
+(function_declarator
+  declarator: (field_identifier) @function)
 
 ; Properties
 (field_expression
