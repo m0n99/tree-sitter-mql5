@@ -1,14 +1,18 @@
 # tree-sitter-mql5 (Neovim/Tree-sitter fork)
 
-This is a fork of [mskelton/tree-sitter-mql5](https://github.com/mskelton/tree-sitter-mql5) to build on modern Tree-sitter.
+This is a fork of
+[mskelton/tree-sitter-mql5](https://github.com/mskelton/tree-sitter-mql5) to
+build on modern Tree-sitter.
 
-This grammar is an extension of [tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) to support mql5 syntax, and it
-requires the C++ parser for best results.
+This grammar is an extension of
+[tree-sitter-cpp](https://github.com/tree-sitter/tree-sitter-cpp) to support
+mql5 syntax, and it requires the C++ parser for best results.
 
 ## Why this fork exists
 
 - Upstream uses a C++ external scanner (`src/scanner.cc`).
-- The new Tree-sitter build pipeline only supports external scanners written in C.
+- The new Tree-sitter build pipeline only supports external scanners written in
+  C.
 - This fork replaces the C++ scanner with a C implementation (`src/scanner.c`).
 
 ## Neovim setup (via GitHub)
@@ -48,7 +52,14 @@ Then install:
 :TSInstall mql5
 ```
 
+## Highlights status
+
+- Core syntax, literals, and keywords are covered by handwritten queries.
+- Built-in constants and functions are appended from MQL5 docs (plus a few
+  manual additions) via `pnpm run build-highlights`.
+- Highlight coverage is still a work in progress; expect gaps for less common
+  constructs.
+
 ## Notes
 
 - This fork keeps the grammar intact; only the scanner implementation changes.
-- Queries live under `queries/mql5/` and currently inherit from C++.
